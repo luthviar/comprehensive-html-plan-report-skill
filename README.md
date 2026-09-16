@@ -5,8 +5,8 @@ Repository publik ini berisi skill universal untuk membantu AI Agent merencanaka
 ## Isi repository
 
 - `skills/comprehensive-html-plan-report/SKILL.md` — aturan workflow untuk AI Agent.
-- `PROJECT_PLAN_TEMPLATE.html` — template yang diisi sebelum implementasi.
-- `PROJECT_REPORT_TEMPLATE.html` — template yang diisi setelah verifikasi.
+- `docs/example-goal/PROJECT_PLAN_TEMPLATE.html` — template generic yang diisi sebelum implementasi.
+- `docs/example-goal/PROJECT_REPORT_TEMPLATE.html` — template generic yang diisi setelah verifikasi.
 - `scripts/validate_templates.py` — validator offline untuk anchor, toggle, dan privacy marker.
 
 ## Hasil yang selalu dibuat
@@ -16,10 +16,24 @@ Repository publik ini berisi skill universal untuk membantu AI Agent merencanaka
 
 Format standarnya: TL;DR non-teknis, tabel keputusan/evidence, checklist, CTA `Lihat detail` ke section detail di bagian bawah, dan link kembali ke checklist. Untuk proyek lain, nama file dan isinya mengikuti proyek tersebut; jangan menyalin identifier atau claim dari project contoh.
 
+## Lokasi output yang rapi (wajib)
+
+Plan dan report tidak diletakkan langsung di root project. Keduanya selalu berada di folder task/goal yang stabil:
+
+```text
+<project-root>/
+└── docs/
+    └── <task-slug>/
+        ├── <task-slug>_PLAN.html
+        └── <task-slug>_REPORT.html
+```
+
+Gunakan `<task-slug>` yang singkat, lowercase, dan memakai tanda hubung (contoh: `auth-migration`, `release-pipeline`, atau `example-goal`). Buat foldernya sebelum menulis plan; report ditulis di folder yang sama setelah implementasi dan verifikasi. Jangan membuat file plan/report di root project kecuali user memberikan path persis yang berbeda.
+
 ## Contoh template generic
 
-- [PROJECT_PLAN_TEMPLATE.html](./PROJECT_PLAN_TEMPLATE.html) — salin dan isi sebelum implementasi.
-- [PROJECT_REPORT_TEMPLATE.html](./PROJECT_REPORT_TEMPLATE.html) — salin dan isi setelah verifikasi.
+- [PROJECT_PLAN_TEMPLATE.html](./docs/example-goal/PROJECT_PLAN_TEMPLATE.html) — salin dan isi sebelum implementasi.
+- [PROJECT_REPORT_TEMPLATE.html](./docs/example-goal/PROJECT_REPORT_TEMPLATE.html) — salin dan isi setelah verifikasi.
 
 Kedua template tidak mengandung data proyek tertentu. Ganti semua placeholder `[dalam kurung siku]`, sesuaikan jumlah checklist, lalu pertahankan pasangan ID CTA dan detailnya.
 
@@ -28,10 +42,19 @@ Kedua template tidak mengandung data proyek tertentu. Ganti semua placeholder `[
 Salin folder `skills/comprehensive-html-plan-report` ke direktori skill AI Agent yang dipakai, misalnya `~/.codex/skills/comprehensive-html-plan-report/`. Pada prompt task, sebutkan:
 
 ```text
-Gunakan skill comprehensive-html-plan-report. Buat PLAN.html sebelum perubahan,
-jalankan implementasi setelah plan jelas, lalu buat REPORT.html berbasis bukti.
-Gunakan nama/path output ini: <path-plan> dan <path-report>.
+Gunakan skill comprehensive-html-plan-report. Buat
+docs/<task-slug>/<task-slug>_PLAN.html sebelum perubahan, jalankan implementasi
+setelah plan jelas, lalu buat docs/<task-slug>/<task-slug>_REPORT.html berbasis bukti.
 Jangan memasukkan secret. Commit/push hanya jika saya minta.
+```
+
+Contoh cepat untuk task `auth-migration`:
+
+```sh
+mkdir -p docs/auth-migration
+cp docs/example-goal/PROJECT_PLAN_TEMPLATE.html docs/auth-migration/auth-migration_PLAN.html
+# Setelah implementasi dan verifikasi selesai:
+cp docs/example-goal/PROJECT_REPORT_TEMPLATE.html docs/auth-migration/auth-migration_REPORT.html
 ```
 
 Skill ini tidak menggantikan instruksi system, developer, repository, atau user. Ia hanya memberi kontrak output dan verifikasi yang konsisten.
@@ -53,7 +76,7 @@ Repository ini sengaja tidak memuat password, token, private key, credential fil
 
 ```sh
 git diff --check
-tidy -q -e -utf8 <PLAN.html> <REPORT.html>
+tidy -q -e -utf8 docs/<task-slug>/<task-slug>_PLAN.html docs/<task-slug>/<task-slug>_REPORT.html
 python3 scripts/validate_templates.py
 ```
 

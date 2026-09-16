@@ -7,7 +7,10 @@ import re
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = (ROOT / "PROJECT_PLAN_TEMPLATE.html", ROOT / "PROJECT_REPORT_TEMPLATE.html")
+FILES = (
+    ROOT / "docs/example-goal/PROJECT_PLAN_TEMPLATE.html",
+    ROOT / "docs/example-goal/PROJECT_REPORT_TEMPLATE.html",
+)
 PRIVATE_PATTERNS = (
     re.compile(r"-----BEGIN [^-]+ PRIVATE KEY-----", re.IGNORECASE),
     re.compile(r"private_key\s*[:=]", re.IGNORECASE),

@@ -7,12 +7,26 @@ description: Universal, evidence-first workflow for creating an HTML implementat
 
 Use this skill for material implementation, refactor, migration, security, CI/CD, release, deployment, or incident work. It creates two plain-language HTML documents with the same structure and interaction quality as the repository reference files:
 
-- `/<project-root>/<PROJECT_SLUG>_PLAN.html` before implementation.
-- `/<project-root>/<PROJECT_SLUG>_REPORT.html` after implementation and verification.
+- `<project-root>/docs/<task-slug>/<task-slug>_PLAN.html` before implementation.
+- `<project-root>/docs/<task-slug>/<task-slug>_REPORT.html` after implementation and verification.
 
 If the user gives exact filenames or paths, use them exactly. Reference files define format only, never content to copy blindly. Replace project-specific names, IDs, commands, evidence, and risks with facts from the current project.
 
-The repository also contains project-agnostic examples: `PROJECT_PLAN_TEMPLATE.html` and `PROJECT_REPORT_TEMPLATE.html`. Copy them as a starting point, replace every `[placeholder]`, and never carry over another project’s identifiers or evidence.
+The repository also contains project-agnostic examples in `docs/example-goal/`: `PROJECT_PLAN_TEMPLATE.html` and `PROJECT_REPORT_TEMPLATE.html`. Copy them as a starting point, replace every `[placeholder]`, and never carry over another project’s identifiers or evidence.
+
+## Required documentation layout
+
+The task/goal folder is part of the output contract, not an optional convention:
+
+```text
+<project-root>/
+└── docs/
+    └── <task-slug>/
+        ├── <task-slug>_PLAN.html
+        └── <task-slug>_REPORT.html
+```
+
+Create `<project-root>/docs/<task-slug>/` before writing the plan. Keep the report beside its plan so a reviewer can inspect one task as a self-contained record. Use a short lowercase kebab-case slug, such as `auth-migration` or `release-pipeline`. Do not write these files directly in the project root. A user-supplied exact path takes precedence over this default.
 
 ## Non-negotiable skill policy
 
@@ -53,7 +67,7 @@ The report is the AI Agent’s accountability statement to the human. Never call
 
 ### 2. Write the plan before mutations
 
-Create the plan HTML before implementation changes. It must be actionable without a separate conversation and must include:
+Create `<project-root>/docs/<task-slug>/<task-slug>_PLAN.html` before implementation changes. It must be actionable without a separate conversation and must include:
 
 - a title, date/context, and one-paragraph purpose;
 - a TL;DR for a non-technical reader;
@@ -76,7 +90,7 @@ Run the lightest checks that prove the changed behavior, then run the required b
 
 ### 5. Write the report as accountability
 
-Create the report HTML only after implementation and verification. It must include:
+Create `<project-root>/docs/<task-slug>/<task-slug>_REPORT.html` only after implementation and verification. It must include:
 
 - a TL;DR with separate `SELESAI`, `BUTUH AKSI OWNER`, `BLOCKED`, `SKIPPED`, or `NOT RUN` statuses;
 - the final environment/configuration mapping;
@@ -116,7 +130,7 @@ At minimum, run checks appropriate to the environment:
 
 ```sh
 git diff --check
-tidy -q -e -utf8 <PLAN.html> <REPORT.html>
+tidy -q -e -utf8 docs/<task-slug>/<task-slug>_PLAN.html docs/<task-slug>/<task-slug>_REPORT.html
 ```
 
 Also verify all internal CTA links resolve and every detail card has a return link. A dependency-free Python check is sufficient:
@@ -142,7 +156,10 @@ class Links(HTMLParser):
         if tag == "details" and attrs.get("id") == "checklist-details":
             self.detail_groups.append(attrs)
 
-for name in ("<PLAN.html>", "<REPORT.html>"):
+for name in (
+    "docs/<task-slug>/<task-slug>_PLAN.html",
+    "docs/<task-slug>/<task-slug>_REPORT.html",
+):
     parser = Links()
     parser.feed(Path(name).read_text(encoding="utf-8"))
     missing = sorted(set(parser.hrefs) - parser.ids)
