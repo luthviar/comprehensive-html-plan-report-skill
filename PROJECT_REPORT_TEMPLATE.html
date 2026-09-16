@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Nama proyek] — report implementasi</title>
+  <style>
+    :root { color-scheme:dark; --bg:#08090b; --surface:#121417; --line:#30343b; --text:#f4f5f7; --muted:#b0b5bf; --accent:#a4a9ff; --good:#75d49b; --warn:#ffd479; --bad:#ff9d9d; --neutral:#c5cbd5; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    header, main, footer { width:min(100% - 32px, 980px); margin:0 auto; }
+    header { padding:36px 0 24px; }
+    h1, h2 { line-height:1.2; }
+    h1 { margin:0; font-size:clamp(30px,5vw,46px); }
+    h2 { margin:0 0 12px; font-size:23px; }
+    section, details { margin:14px 0; padding:20px; background:var(--surface); border:1px solid var(--line); border-radius:12px; }
+    .tldr { border-color:#51578e; }
+    .muted { color:var(--muted); }
+    .callout { margin:12px 0; padding:12px 14px; border-left:3px solid var(--accent); color:var(--muted); }
+    .warning { border-left-color:var(--warn); }
+    .success { border-left-color:var(--good); }
+    .status { display:inline-block; padding:3px 9px; border-radius:99px; font-size:12px; font-weight:700; letter-spacing:.04em; }
+    .pass { color:#07140d; background:var(--good); }
+    .pending { color:#211703; background:var(--warn); }
+    .blocked { color:#240606; background:var(--bad); }
+    .neutral { color:#11151d; background:var(--neutral); }
+    code { color:#d8dcff; overflow-wrap:anywhere; }
+    table { width:100%; border-collapse:collapse; display:block; overflow-x:auto; font-size:14px; }
+    th, td { min-width:145px; padding:9px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-size:12px; text-transform:uppercase; }
+    li { margin:8px 0; }
+    .check-row { display:flex; gap:10px; align-items:flex-start; }
+    label { display:flex; flex:1; gap:10px; align-items:flex-start; min-height:42px; padding:8px; color:var(--muted); }
+    label > span { flex:1; min-width:0; }
+    input { width:19px; height:19px; margin-top:3px; accent-color:var(--accent); }
+    input:checked + span { text-decoration:line-through; opacity:.65; }
+    summary { min-height:42px; padding:7px 0; cursor:pointer; font-weight:650; }
+    .check-row .detail-link { margin-top:8px; }
+    .detail-link, .back-link { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; color:var(--accent); font-size:12px; font-weight:650; text-decoration:none; white-space:nowrap; }
+    .detail-link:focus-visible, .back-link:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+    .details-toggle { padding:0; overflow:hidden; }
+    .details-toggle > summary { padding:20px; }
+    .details-toggle[open] > summary { border-bottom:1px solid var(--line); }
+    .summary-title { font-size:23px; line-height:1.2; font-weight:700; }
+    .summary-hint { color:var(--muted); font-size:13px; }
+    .details-body { padding:0 20px 20px; }
+    .detail-card { margin:12px 0; padding:16px; background:#0d0f12; border:1px solid var(--line); border-radius:10px; scroll-margin-top:20px; }
+    .detail-card:target { border-color:var(--accent); box-shadow:0 0 0 2px #a4a9ff33; }
+    .detail-card h3 { margin:0 0 8px; font-size:18px; line-height:1.3; }
+    .detail-card p { margin:8px 0; }
+    .detail-card ul { margin:8px 0 14px; padding-left:22px; }
+    footer { padding:0 0 36px; color:var(--muted); font-size:13px; }
+    .small { font-size:13px; }
+    @media (max-width:560px) { .check-row { flex-direction:column; gap:0; } .check-row .detail-link { margin:0 0 8px 37px; align-self:flex-start; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="muted">[Nama proyek] · template report implementasi · [Tanggal]</p>
+    <h1>[Ringkasan hasil utama]</h1>
+    <p class="muted">Ganti semua placeholder dengan fakta dari implementasi dan verifikasi yang benar-benar dilakukan.</p>
+    <div class="callout"><strong>Pertanggungjawaban AI Agent:</strong> report ini dibaca AI Agent dan manusia. Setiap klaim harus bisa ditelusuri ke command, artifact, link, commit, atau blocker; hal yang belum terbukti tidak boleh ditulis sebagai selesai.</div>
+  </header>
+
+  <main>
+    <section class="tldr">
+      <h2>TL;DR untuk non-teknis</h2>
+      <p><span class="status neutral">[STATUS]</span> [Ringkasan apa yang berhasil atau belum.]</p>
+      <p><span class="status neutral">[OWNER ACTION]</span> [Hal yang masih membutuhkan keputusan, credential, atau tindakan manusia.]</p>
+      <div class="callout warning"><strong>Batas evidence:</strong> [Jelaskan apa yang tidak bisa dibuktikan dan mengapa. Jangan menyamakan hasil lokal dengan CI, remote, store, atau production.]</div>
+    </section>
+
+    <section>
+      <h2>Ringkasan hasil</h2>
+      <table>
+        <thead><tr><th>Environment / area</th><th>Target akhir</th><th>Status</th><th>Bukti singkat</th></tr></thead>
+        <tbody>
+          <tr><td>[Development]</td><td>[Konfigurasi / artifact]</td><td><span class="status neutral">[PASS / BLOCKED]</span></td><td>[Command atau link evidence]</td></tr>
+          <tr><td>[Staging]</td><td>[Konfigurasi / artifact]</td><td><span class="status neutral">[STATUS]</span></td><td>[Command atau link evidence]</td></tr>
+          <tr><td>[Production]</td><td>[Konfigurasi / artifact]</td><td><span class="status neutral">[STATUS]</span></td><td>[Command atau link evidence]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="checklist-results" aria-labelledby="checklist-results-title">
+      <h2 id="checklist-results-title">Checklist hasil</h2>
+      <p class="muted">Checklist ini read-only: ubah status berdasarkan evidence, bukan sekadar mencentang karena command pernah dijalankan.</p>
+      <div class="check-row"><label><input type="checkbox" disabled><span>[Hasil 1: discovery dan scope sesuai plan]</span></label><a class="detail-link" href="#detail-result-discovery" aria-label="Lihat detail: hasil discovery">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" disabled><span>[Hasil 2: implementasi utama selesai]</span></label><a class="detail-link" href="#detail-result-implementation" aria-label="Lihat detail: hasil implementasi">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" disabled><span>[Hasil 3: security dan secret boundary aman]</span></label><a class="detail-link" href="#detail-result-security" aria-label="Lihat detail: hasil security">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" disabled><span>[Hasil 4: CI/CD atau automation tervalidasi]</span></label><a class="detail-link" href="#detail-result-automation" aria-label="Lihat detail: hasil automation">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" disabled><span>[Hasil 5: build, test, lint, dan scan selesai]</span></label><a class="detail-link" href="#detail-result-verification" aria-label="Lihat detail: hasil verifikasi">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" disabled><span>[Hasil 6: delivery, review, dan handoff tercatat]</span></label><a class="detail-link" href="#detail-result-delivery" aria-label="Lihat detail: hasil delivery">Lihat detail</a></div>
+    </section>
+
+    <section>
+      <h2>Bukti verifikasi</h2>
+      <table>
+        <thead><tr><th>Check</th><th>Status</th><th>Command / link</th><th>Environment dan catatan</th></tr></thead>
+        <tbody>
+          <tr><td>[Build / compile]</td><td><span class="status neutral">[STATUS]</span></td><td><code>[command]</code></td><td>[Target dan batasan]</td></tr>
+          <tr><td>[Test / smoke]</td><td><span class="status neutral">[STATUS]</span></td><td><code>[command atau URL]</code></td><td>[Jumlah test atau observasi]</td></tr>
+          <tr><td>[Security / secret scan]</td><td><span class="status neutral">[STATUS]</span></td><td><code>[command]</code></td><td>[Temuan dan keputusan]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Environment dan tool</h2>
+      <table>
+        <thead><tr><th>Target</th><th>Versi / lokasi</th><th>Hasil</th></tr></thead>
+        <tbody>
+          <tr><td>[Local / remote / CI]</td><td>[Tool version dan path]</td><td>[Apa yang benar-benar diverifikasi]</td></tr>
+          <tr><td>[Provider / store / service]</td><td>[Project atau account name]</td><td>[Read-only evidence atau owner confirmation]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Commit dan delivery</h2>
+      <table>
+        <thead><tr><th>Repo / branch</th><th>Commit SHA</th><th>MR / PR</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>[Repo] / <code>[branch]</code></td><td><code>[full SHA]</code></td><td>[Link review]</td><td>[Merged / open / not requested]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <details>
+      <summary>Blocker dan owner next action</summary>
+      <ul>
+        <li>[Blocker atau permission yang belum tersedia]</li>
+        <li>[Owner action, pemilik, dan deadline]</li>
+        <li>[Rollback atau stop condition]</li>
+      </ul>
+    </details>
+
+    <details id="checklist-details" class="details-toggle" data-detail-group aria-labelledby="checklist-details-title">
+      <summary id="checklist-details-title"><span class="summary-title" role="heading" aria-level="2">Detail setiap checklist</span> <span class="summary-hint">(klik untuk buka penjelasan lengkap)</span></summary>
+      <div class="details-body">
+        <p class="muted">Bagian ini menghubungkan setiap status dengan bukti dan batasan yang dapat diaudit manusia.</p>
+
+        <article id="detail-result-discovery" class="detail-card">
+          <h3>1. Discovery dan scope</h3>
+          <p><strong>Status:</strong> [PASS / BLOCKED / NOT RUN]. Jelaskan kondisi awal dan scope yang benar-benar dipakai.</p>
+          <ul><li><strong>Evidence:</strong> [File, command, issue, atau keputusan owner].</li><li><strong>Perubahan dari plan:</strong> [Tidak ada atau jelaskan alasannya].</li><li><strong>Catatan:</strong> [Batas klaim yang masih berlaku].</li></ul>
+          <a class="back-link" href="#checklist-results">↑ Kembali ke checklist hasil</a>
+        </article>
+
+        <article id="detail-result-implementation" class="detail-card">
+          <h3>2. Implementasi utama</h3>
+          <p><strong>Status:</strong> [STATUS]. Ringkas file, behavior, atau konfigurasi yang berubah tanpa mengklaim area yang tidak disentuh.</p>
+          <ul><li><strong>Evidence:</strong> [Diff, artifact, screenshot, atau command].</li><li><strong>Acceptance:</strong> [Kriteria yang terpenuhi dan yang belum].</li><li><strong>Catatan:</strong> [Compatibility, migration, atau rollback].</li></ul>
+          <a class="back-link" href="#checklist-results">↑ Kembali ke checklist hasil</a>
+        </article>
+
+        <article id="detail-result-security" class="detail-card">
+          <h3>3. Security dan secret boundary</h3>
+          <p><strong>Status:</strong> [STATUS]. Tunjukkan bahwa trust boundary dan secret handling tetap aman.</p>
+          <ul><li><strong>Evidence:</strong> [Secret scan, permission review, guard, atau provider response].</li><li><strong>Yang tidak dibagikan:</strong> password, token, private key, credential file, dan data pribadi.</li><li><strong>Owner action:</strong> [Jika enforcement atau rotation masih dibutuhkan].</li></ul>
+          <a class="back-link" href="#checklist-results">↑ Kembali ke checklist hasil</a>
+        </article>
+
+        <article id="detail-result-automation" class="detail-card">
+          <h3>4. CI/CD atau automation</h3>
+          <p><strong>Status:</strong> [STATUS]. Jelaskan job, environment mapping, artifact, dan guard yang benar-benar diuji.</p>
+          <ul><li><strong>Evidence:</strong> [Pipeline URL, job log termask, atau local reproduction].</li><li><strong>Guard:</strong> [Input salah yang ditolak atau alasan guard belum diuji].</li><li><strong>Batasan:</strong> [Runner, credential, quota, atau provider yang belum tersedia].</li></ul>
+          <a class="back-link" href="#checklist-results">↑ Kembali ke checklist hasil</a>
+        </article>
+
+        <article id="detail-result-verification" class="detail-card">
+          <h3>5. Build, test, lint, dan scan</h3>
+          <p><strong>Status:</strong> [STATUS]. Bedakan hasil local, remote, CI, staging, dan production.</p>
+          <ul><li><strong>Evidence:</strong> [Command lengkap, target, tool version, dan hasil].</li><li><strong>Tidak dijalankan:</strong> [Check yang skipped atau blocked dan alasannya].</li><li><strong>Interpretasi:</strong> [Apa yang dibuktikan dan apa yang belum].</li></ul>
+          <a class="back-link" href="#checklist-results">↑ Kembali ke checklist hasil</a>
+        </article>
+
+        <article id="detail-result-delivery" class="detail-card">
+          <h3>6. Delivery, review, dan handoff</h3>
+          <p><strong>Status:</strong> [STATUS]. Jelaskan jejak perubahan sampai remote dan siapa yang perlu melakukan langkah berikutnya.</p>
+          <ul><li><strong>Evidence:</strong> commit SHA, branch, MR/PR, merge state, dan remote head.</li><li><strong>Owner next action:</strong> [Release, approval, credential, monitoring, atau rollback].</li><li><strong>Accountability:</strong> [Hal yang menjadi tanggung jawab AI Agent dan hal yang membutuhkan manusia].</li></ul>
+          <a class="back-link" href="#checklist-results">↑ Kembali ke checklist hasil</a>
+        </article>
+      </div>
+    </details>
+  </main>
+
+  <footer>Template ini adalah report pertanggungjawaban berbasis evidence. Jangan mengisi placeholder dengan asumsi atau secret.</footer>
+  <script>
+    document.querySelectorAll("a.detail-link").forEach(function (link) {
+      link.addEventListener("click", function () {
+        var target = document.getElementById(link.getAttribute("href").slice(1));
+        var group = target && target.closest("details[data-detail-group]");
+        if (group) group.open = true;
+      });
+    });
+  </script>
+</body>
+</html>

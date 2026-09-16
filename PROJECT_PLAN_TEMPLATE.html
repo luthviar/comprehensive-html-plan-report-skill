@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Nama proyek] — plan implementasi</title>
+  <style>
+    :root { color-scheme:dark; --bg:#08090b; --surface:#121417; --line:#30343b; --text:#f4f5f7; --muted:#b0b5bf; --accent:#a4a9ff; --good:#75d49b; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    header, main, footer { width:min(100% - 32px, 980px); margin:0 auto; }
+    header { padding:36px 0 24px; }
+    h1, h2 { line-height:1.2; }
+    h1 { margin:0; font-size:clamp(30px,5vw,46px); }
+    h2 { margin:0 0 12px; font-size:23px; }
+    section, details { margin:14px 0; padding:20px; background:var(--surface); border:1px solid var(--line); border-radius:12px; }
+    .tldr { border-color:#51578e; }
+    .muted { color:var(--muted); }
+    .callout { margin:12px 0; padding:12px 14px; border-left:3px solid var(--accent); color:var(--muted); }
+    code { color:#d8dcff; overflow-wrap:anywhere; }
+    table { width:100%; border-collapse:collapse; display:block; overflow-x:auto; font-size:14px; }
+    th, td { min-width:145px; padding:9px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-size:12px; text-transform:uppercase; }
+    li { margin:8px 0; }
+    .check-row { display:flex; gap:10px; align-items:flex-start; }
+    label { display:flex; flex:1; gap:10px; align-items:flex-start; min-height:42px; padding:8px; color:var(--muted); }
+    label > span { flex:1; min-width:0; }
+    input { width:19px; height:19px; margin-top:3px; accent-color:var(--accent); }
+    input:checked + span { text-decoration:line-through; opacity:.65; }
+    summary { min-height:42px; padding:7px 0; cursor:pointer; font-weight:650; }
+    .check-row .detail-link { margin-top:8px; }
+    .detail-link, .back-link { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; color:var(--accent); font-size:12px; font-weight:650; text-decoration:none; white-space:nowrap; }
+    .detail-link:focus-visible, .back-link:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+    .details-toggle { padding:0; overflow:hidden; }
+    .details-toggle > summary { padding:20px; }
+    .details-toggle[open] > summary { border-bottom:1px solid var(--line); }
+    .summary-title { font-size:23px; line-height:1.2; font-weight:700; }
+    .summary-hint { color:var(--muted); font-size:13px; }
+    .details-body { padding:0 20px 20px; }
+    .detail-card { margin:12px 0; padding:16px; background:#0d0f12; border:1px solid var(--line); border-radius:10px; scroll-margin-top:20px; }
+    .detail-card:target { border-color:var(--accent); box-shadow:0 0 0 2px #a4a9ff33; }
+    .detail-card h3 { margin:0 0 8px; font-size:18px; line-height:1.3; }
+    .detail-card p { margin:8px 0; }
+    .detail-card ul { margin:8px 0 14px; padding-left:22px; }
+    footer { padding:0 0 36px; color:var(--muted); font-size:13px; }
+    @media (max-width:560px) { .check-row { flex-direction:column; gap:0; } .check-row .detail-link { margin:0 0 8px 37px; align-self:flex-start; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="muted">[Nama proyek] · template plan implementasi · [Tanggal]</p>
+    <h1>[Tujuan utama yang ingin dicapai]</h1>
+    <p class="muted">Isi semua tanda kurung siku sebelum implementasi. Jangan menulis nilai contoh sebagai fakta.</p>
+    <div class="callout"><strong>Untuk siapa:</strong> plan ini adalah kontrak kerja yang harus bisa diikuti AI Agent dan direview manusia. Setiap langkah perlu tujuan, bukti selesai, dan batasan yang jelas.</div>
+  </header>
+
+  <main>
+    <section class="tldr">
+      <h2>TL;DR</h2>
+      <ol>
+        <li>[Ringkasan hasil yang diharapkan dalam satu kalimat.]</li>
+        <li>[Perubahan utama atau keputusan penting.]</li>
+        <li>[Environment, platform, atau pengguna yang terdampak.]</li>
+        <li>[Risiko terbesar dan cara mengendalikannya.]</li>
+      </ol>
+      <div class="callout"><strong>Definition of success:</strong> [Jelaskan kondisi terukur yang membuat pekerjaan boleh dinyatakan selesai.]</div>
+    </section>
+
+    <section>
+      <h2>Scope dan keputusan</h2>
+      <table>
+        <thead><tr><th>Area</th><th>Keputusan / nilai</th><th>Alasan dan sumber</th></tr></thead>
+        <tbody>
+          <tr><td>Tujuan</td><td>[Tujuan]</td><td>[Mengapa tujuan ini diperlukan]</td></tr>
+          <tr><td>Environment / variant</td><td>[Development, staging, production, atau lainnya]</td><td>[Sumber konfigurasi yang benar]</td></tr>
+          <tr><td>Platform / sistem</td><td>[Platform dan versi]</td><td>[Batasan toolchain atau kompatibilitas]</td></tr>
+          <tr><td>In scope</td><td>[Yang akan diubah]</td><td>[Bukti bahwa area ini memang diperlukan]</td></tr>
+          <tr><td>Out of scope</td><td>[Yang sengaja tidak diubah]</td><td>[Alasan dan rencana terpisah bila ada]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="checklist-plan" aria-labelledby="checklist-plan-title">
+      <h2 id="checklist-plan-title">Checklist pekerjaan</h2>
+      <p class="muted">Centang hanya setelah bukti di bagian detail sudah tersedia. Gunakan CTA untuk membuka penjelasan lengkap.</p>
+      <div class="check-row"><label><input type="checkbox" data-key="plan-discovery"><span>Konfirmasi kondisi awal, pemilik keputusan, dependency, dan batasan.</span></label><a class="detail-link" href="#detail-plan-discovery" aria-label="Lihat detail: discovery">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" data-key="plan-scope"><span>Tetapkan scope, keputusan teknis, acceptance criteria, dan rencana rollback.</span></label><a class="detail-link" href="#detail-plan-scope" aria-label="Lihat detail: scope dan keputusan">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" data-key="plan-implementation"><span>Implementasikan perubahan minimum pada source dan konfigurasi yang benar.</span></label><a class="detail-link" href="#detail-plan-implementation" aria-label="Lihat detail: implementasi">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" data-key="plan-security"><span>Pastikan secret, permission, input validation, dan guard keamanan tetap benar.</span></label><a class="detail-link" href="#detail-plan-security" aria-label="Lihat detail: security">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" data-key="plan-automation"><span>Perbarui CI/CD atau automation agar memilih environment dan credential yang tepat.</span></label><a class="detail-link" href="#detail-plan-automation" aria-label="Lihat detail: automation">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" data-key="plan-verification"><span>Jalankan verifikasi yang proporsional: build, test, lint, security scan, dan smoke check.</span></label><a class="detail-link" href="#detail-plan-verification" aria-label="Lihat detail: verifikasi">Lihat detail</a></div>
+      <div class="check-row"><label><input type="checkbox" data-key="plan-delivery"><span>Dokumentasikan evidence, commit, review, handoff, dan langkah setelah delivery.</span></label><a class="detail-link" href="#detail-plan-delivery" aria-label="Lihat detail: delivery">Lihat detail</a></div>
+    </section>
+
+    <details>
+      <summary>Definition of done</summary>
+      <ul>
+        <li>[Acceptance criteria utama terpenuhi dan buktinya tersimpan.]</li>
+        <li>[Tidak ada secret atau data sensitif di source, log, atau dokumen.]</li>
+        <li>[Test dan scan wajib lulus atau keterbatasannya dicatat.]</li>
+        <li>[Rollback dan owner next action jelas.]</li>
+      </ul>
+    </details>
+
+    <section>
+      <h2>Risiko dan owner input</h2>
+      <table>
+        <thead><tr><th>Risiko / blocker</th><th>Dampak</th><th>Mitigasi / owner</th></tr></thead>
+        <tbody>
+          <tr><td>[Risiko 1]</td><td>[Dampak]</td><td>[Mitigasi dan owner]</td></tr>
+          <tr><td>[Credential atau permission yang belum tersedia]</td><td>[Apa yang tidak bisa diverifikasi]</td><td>[Pemilik dan deadline]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Catatan keamanan</h2>
+      <p class="muted">Jangan memasukkan password, token, private key, credential file, atau data pribadi ke source, HTML, Git, issue, atau log. Tulis hanya nama credential, lokasi secure store, dan status validasinya.</p>
+    </section>
+
+    <details id="checklist-details" class="details-toggle" data-detail-group aria-labelledby="checklist-details-title">
+      <summary id="checklist-details-title"><span class="summary-title" role="heading" aria-level="2">Detail setiap checklist</span> <span class="summary-hint">(klik untuk buka penjelasan lengkap)</span></summary>
+      <div class="details-body">
+        <p class="muted">Bagian ini menjadi panduan AI Agent saat bekerja dan daftar bukti untuk review manusia.</p>
+
+        <article id="detail-plan-discovery" class="detail-card">
+          <h3>1. Konfirmasi kondisi awal</h3>
+          <p><strong>Tujuan:</strong> memahami sistem nyata sebelum menyentuh kode.</p>
+          <ul><li>Periksa source, konfigurasi, script, dependency, environment, dan instruksi repository.</li><li>Tentukan siapa yang boleh memberi keputusan atau credential.</li><li><strong>Bukti selesai:</strong> inventory singkat, owner, dan blocker awal tercatat.</li></ul>
+          <a class="back-link" href="#checklist-plan">↑ Kembali ke checklist</a>
+        </article>
+
+        <article id="detail-plan-scope" class="detail-card">
+          <h3>2. Tetapkan scope dan keputusan</h3>
+          <p><strong>Tujuan:</strong> mencegah pekerjaan melebar atau salah sasaran.</p>
+          <ul><li>Tulis in-scope, out-of-scope, acceptance criteria, dan rollback.</li><li>Catat asumsi serta keputusan yang masih membutuhkan owner.</li><li><strong>Bukti selesai:</strong> tabel scope di atas terisi dan dapat direview.</li></ul>
+          <a class="back-link" href="#checklist-plan">↑ Kembali ke checklist</a>
+        </article>
+
+        <article id="detail-plan-implementation" class="detail-card">
+          <h3>3. Implementasi minimum</h3>
+          <p><strong>Tujuan:</strong> mengubah hanya bagian yang diperlukan untuk acceptance criteria.</p>
+          <ul><li>Gunakan pola dan helper yang sudah ada sebelum menambah abstraction.</li><li>Jaga kompatibilitas antar-environment dan hindari perubahan tidak terkait.</li><li><strong>Bukti selesai:</strong> diff dapat dijelaskan per file dan tidak berisi perubahan liar.</li></ul>
+          <a class="back-link" href="#checklist-plan">↑ Kembali ke checklist</a>
+        </article>
+
+        <article id="detail-plan-security" class="detail-card">
+          <h3>4. Security dan secret boundary</h3>
+          <p><strong>Tujuan:</strong> perubahan tidak membuka akses atau membocorkan data.</p>
+          <ul><li>Validasi input dan permission di trust boundary; pertahankan fail-closed guard.</li><li>Gunakan secure store untuk secret dan termask log.</li><li><strong>Bukti selesai:</strong> secret scan, permission review, dan daftar batasan tercatat.</li></ul>
+          <a class="back-link" href="#checklist-plan">↑ Kembali ke checklist</a>
+        </article>
+
+        <article id="detail-plan-automation" class="detail-card">
+          <h3>5. CI/CD atau automation</h3>
+          <p><strong>Tujuan:</strong> automation mengulang hasil yang sama tanpa memilih target yang salah.</p>
+          <ul><li>Mapping environment ke config dan credential harus eksplisit.</li><li>Tambahkan guard untuk mismatch, artifact, branch, dan secret exposure.</li><li><strong>Bukti selesai:</strong> job atau command automation dan hasil uji guard tertulis.</li></ul>
+          <a class="back-link" href="#checklist-plan">↑ Kembali ke checklist</a>
+        </article>
+
+        <article id="detail-plan-verification" class="detail-card">
+          <h3>6. Verifikasi</h3>
+          <p><strong>Tujuan:</strong> membuktikan behavior yang berubah, bukan sekadar melihat command selesai.</p>
+          <ul><li>Jalankan check paling kecil lebih dulu, lalu test/build wajib sesuai risiko.</li><li>Catat platform, versi tool, command, output, dan yang tidak bisa dijalankan.</li><li><strong>Bukti selesai:</strong> report dapat membedakan PASS, BLOCKED, SKIPPED, dan NOT RUN.</li></ul>
+          <a class="back-link" href="#checklist-plan">↑ Kembali ke checklist</a>
+        </article>
+
+        <article id="detail-plan-delivery" class="detail-card">
+          <h3>7. Evidence dan delivery</h3>
+          <p><strong>Tujuan:</strong> manusia lain dapat mengaudit, mereview, dan mengulang hasilnya.</p>
+          <ul><li>Isi report dengan evidence, commit SHA, branch, MR/PR, blocker, dan owner action.</li><li>Commit hanya file yang memang termasuk scope lalu push sesuai instruksi.</li><li><strong>Bukti selesai:</strong> remote head diverifikasi dan handoff tidak membutuhkan rahasia.</li></ul>
+          <a class="back-link" href="#checklist-plan">↑ Kembali ke checklist</a>
+        </article>
+      </div>
+    </details>
+  </main>
+
+  <footer>Template ini tidak memuat secret. Ganti semua placeholder dan gunakan tombol “Lihat detail” untuk membuka penjelasan tiap langkah.</footer>
+  <script>
+    (function () {
+      var key = "project-plan-template.v1";
+      var inputs = Array.prototype.slice.call(document.querySelectorAll("input[data-key]"));
+      var saved = {};
+      try { saved = JSON.parse(localStorage.getItem(key) || "{}"); } catch (error) {}
+      inputs.forEach(function (input) {
+        input.checked = saved[input.dataset.key] === true;
+        input.addEventListener("change", function () {
+          saved[input.dataset.key] = input.checked;
+          try { localStorage.setItem(key, JSON.stringify(saved)); } catch (error) {}
+        });
+      });
+      document.querySelectorAll("a.detail-link").forEach(function (link) {
+        link.addEventListener("click", function () {
+          var target = document.getElementById(link.getAttribute("href").slice(1));
+          var group = target && target.closest("details[data-detail-group]");
+          if (group) group.open = true;
+        });
+      });
+    }());
+  </script>
+</body>
+</html>
