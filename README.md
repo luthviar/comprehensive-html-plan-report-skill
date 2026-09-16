@@ -8,7 +8,6 @@ Repository publik ini berisi skill universal untuk membantu AI Agent merencanaka
 - `PROJECT_PLAN_TEMPLATE.html` — template yang diisi sebelum implementasi.
 - `PROJECT_REPORT_TEMPLATE.html` — template yang diisi setelah verifikasi.
 - `scripts/validate_templates.py` — validator offline untuk anchor, toggle, dan privacy marker.
-- `.github/workflows/validate.yml` — validasi otomatis pada push dan pull request.
 
 ## Hasil yang selalu dibuat
 
@@ -55,6 +54,7 @@ Repository ini sengaja tidak memuat password, token, private key, credential fil
 ```sh
 git diff --check
 tidy -q -e -utf8 <PLAN.html> <REPORT.html>
+python3 scripts/validate_templates.py
 ```
 
 Pastikan setiap `href="#detail-..."` punya target ID tepat satu kali, setiap detail punya link kembali, HTML bisa dibuka offline, dan tidak ada password, token, private key, atau service-account JSON di file.
